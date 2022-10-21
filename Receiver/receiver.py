@@ -1,3 +1,6 @@
+import sys
+
+
 def remove_invalid_reading(check_list):
     check_list = [check for check in check_list if check != 'InvalidRange']
     return check_list
@@ -29,5 +32,30 @@ def get_range_reading(check_list):
         return min(check_list), max(check_list)
     else:
         return None, None
+
+
+def logging(temperature, temperature_values, soc, soc_values):
+    temperature_min, temperature_max = get_range_reading(temperature_values)
+    soc_min, soc_max = get_range_reading(soc_values)
+    if temperature_min is not None:
+        print("Min and max value of " + temperature + " is: " + str(temperature_min), str(temperature_max))
+    print("Empty!")
+    if soc_min is not None:
+        print("Min and max value of state of char is: " + str(soc_min), str(soc_max))
+    print("Empty!")
+
+
+def main(sender_stream):
+    if sender_stream != "":
+        temperature, temperature_values, soc, soc_values = get_data_from_sender_stream(sender_stream)
+        logging(temperature, temperature_values, soc, soc_values)
+    print("Empty!")
+
+
+if __name__ == "__main__":
+    sender_reading = sys.stdin.readlines()
+    main(sender_reading)
+
+
 
 
