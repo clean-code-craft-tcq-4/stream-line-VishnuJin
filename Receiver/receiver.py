@@ -1,5 +1,7 @@
 import sys
 
+COUNT = 5
+
 
 def remove_invalid_reading(check_list):
     check_list = [check for check in check_list if check != 'InvalidRange']
@@ -34,28 +36,46 @@ def get_range_reading(check_list):
         return None, None
 
 
-def logging(temperature, temperature_values, soc, soc_values):
+def simple_moving_average(check_list):
+    sma = 0
+    if len(check_list) >= COUNT:
+        for i in range(1, COUNT + 1):
+            sma = sma + check_list[-i]
+        sma = sma / COUNT
+        return sma
+    else:
+        return None
+
+
+def logging_SMA(temperature_values, soc_values):
+    temp, soc = simple_moving_average(temperature_values), simple_moving_average(soc_values)
+    if temp is not None:
+        print("sma of {} is {}".format(COUNT, temp))
+    print("values in {} is less than{}".format(COUNT, temp))
+    if soc is not None:
+        print("SMA of {} is {}".format(COUNT, soc))
+    print("values in {} is less than{}".format(COUNT, soc))
+
+
+def logging(temperature_values, soc_values):
     temperature_min, temperature_max = get_range_reading(temperature_values)
     soc_min, soc_max = get_range_reading(soc_values)
     if temperature_min is not None:
-        print("Min and max value of " + temperature + " is: " + str(temperature_min), str(temperature_max))
+        print("{} {}".format(temperature_min, temperature_max))
     print("Empty!")
     if soc_min is not None:
-        print("Min and max value of state of char is: " + str(soc_min), str(soc_max))
+        print("{} {}".format(soc_min, soc_max))
     print("Empty!")
 
 
 def main(sender_stream):
     if sender_stream != "":
         temperature, temperature_values, soc, soc_values = get_data_from_sender_stream(sender_stream)
-        logging(temperature, temperature_values, soc, soc_values)
+        logging(temperature_values, soc_values)
+        logging_SMA(temperature_values, soc_values)
     print("Empty!")
 
 
 if __name__ == "__main__":
     sender_reading = sys.stdin.readlines()
     main(sender_reading)
-
-
-
-

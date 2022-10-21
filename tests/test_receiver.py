@@ -1,6 +1,6 @@
 import unittest
 import Receiver
-from Receiver.receiver import remove_invalid_reading, get_valid_reading, get_data_from_sender_stream, get_range_reading
+from Receiver.receiver import remove_invalid_reading, get_valid_reading, get_data_from_sender_stream, get_range_reading, simple_moving_average
 
 
 class ReceiverTesting(unittest.TestCase):
@@ -32,6 +32,15 @@ class ReceiverTesting(unittest.TestCase):
 
     def test_get_range_reading_empty_list(self):
         self.assertEqual(get_range_reading([]), (None, None))
+
+    def test_sma_count(self):
+        self.assertEqual(simple_moving_average([-2, 0, 1, 16, 12]), 5.4)
+
+    def test_lower_sma_count(self):
+        self.assertEqual(simple_moving_average([-1]), None)
+
+    def test_higher_sma_count(self):
+        self.assertEqual(simple_moving_average([9, 8, 9, 2, 6, 10 ]), 7.0)
 
 
 
