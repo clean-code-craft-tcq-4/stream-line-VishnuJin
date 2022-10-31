@@ -13,4 +13,4 @@ jobs:
         run: sudo npm install -g jscpd
 
       - name: Check duplications
-        run: jscpd . --min-lines 1 --min-tokens 35 --threshold 0
+        run:  jscpd . --min-lines 1 --min-tokens 35 --threshold 0 -i **/*.js,**/*.html
