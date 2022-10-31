@@ -2,6 +2,7 @@
 import random
 
 
+
 class Sensor:
     def fetch_reading(self):
         reading = random.randint(self.MIN, self.MAX)

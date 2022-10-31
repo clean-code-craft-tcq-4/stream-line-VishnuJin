@@ -1,4 +1,8 @@
-from telnetlib import SE
+"""
+This module mimics a temperature sensor
+"""
+
+
 from sensors.sensor import Sensor
 
 

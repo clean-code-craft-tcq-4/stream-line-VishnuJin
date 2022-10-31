@@ -1,8 +1,12 @@
+import io
+import json
+from unittest.mock import patch
+
+
+
 from sender import read_data_from_sensors, send_readings
 from sensors.battery_temperature import Temperature
 from sensors.state_of_charge import StateOfCharge
-import json
-import os
 
 
 def test_read_data_from_sensors():
@@ -19,15 +23,8 @@ def test_read_data_from_sensors_is_valid():
     ) and StateOfCharge().is_reading_valid(actual_result["SOC"])
 
 
-def write_to_file(json_reading):
-    with open("readings.json", "w") as outfile:
-        outfile.write(json_reading)
-
-
 def test_send_readings():
-    readings_file = "readings.json"
-    send_readings(write_to_file)
-    with open(readings_file, "r") as outfile:
-        json_readings = json.load(outfile)
-    os.remove(readings_file)
-    assert len(json_readings) == 50
+    with patch('sys.stdout', new=io.StringIO()) as stdout:
+        send_readings(1)
+    output = json.loads(stdout.getvalue())
+    assert type(output) == dict

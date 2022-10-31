@@ -1,5 +1,7 @@
-from battery_temperature import Temperature
-from state_of_charge import StateOfCharge
+
+
+from sensors.battery_temperature import Temperature
+from sensors.state_of_charge import StateOfCharge
 
 
 def test_is_temperature_reading_valid():

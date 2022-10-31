@@ -1,3 +1,8 @@
+"""
+This module mimics a StateOfCharge sensor
+"""
+
+
 from sensors.sensor import Sensor
 
 
