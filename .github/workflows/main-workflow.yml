@@ -25,7 +25,7 @@ jobs:
           flake8 . --count --exit-zero --max-line-length=80 --ignore=E111,E121,E126 --statistics
       - name: Run and collect coverage
         run: |
-          PYTHONPATH="$PYTHONPATH:/home/runner/work/stream-line-VishnuJin/stream-line-VishnuJin:/home/runner/work/stream-line-VishnuJin/stream-line-VishnuJin:/home/runner/work/stream-line-VishnuJin/stream-line-VishnuJin/Receiver" coverage run -m pytest
+          PYTHONPATH="$PYTHONPATH:/home/runner/work/stream-line-VishnuJin/stream-line-VishnuJin:/home/runner/work/stream-line-VishnuJin/stream-line-VishnuJin/Sender:/home/runner/work/stream-line-VishnuJin/stream-line-VishnuJin/Receiver" coverage run -m pytest
           coverage html
           coverage report
       - name: Upload coverage
