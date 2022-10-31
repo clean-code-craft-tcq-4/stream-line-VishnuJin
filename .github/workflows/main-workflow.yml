@@ -2,7 +2,7 @@ name: Build and Run
 
 on: [push, pull_request]
 env:
-  PYTHONPATH: "$PYTHONPATH:$GITHUB_ACTION_PATH:$GITHUB_ACTION_PATH/Sender:$GITHUB_ACTION_PATH/Receiver"
+  PYTHONPATH: "$PYTHONPATH:$GITHUB_WORKSPACE:$GITHUB_WORKSPACE/Sender:$GITHUB_WORKSPACE/Receiver"
 jobs:
   build:
     runs-on: ubuntu-latest
